@@ -50,11 +50,8 @@ public class ProduitRESTController {
 
     // Supprimer un produit par 'id' avec la méthode 'GET'
     //  http://localhost:8080/produits/delete/{id}  (GET)
-    @GetMapping(
-            // spécifier le path de la méthode
-            value = "/delete/{id}")
-    public void deleteProduit(@PathVariable Long id)
-    {
+    @DeleteMapping("/{id}")
+    public void deleteProduit(@PathVariable Long id) {
         produitRepos.deleteById(id);
     }
 
@@ -93,5 +90,10 @@ public class ProduitRESTController {
     {
         produitRepos.delete(p);
     }
+    @GetMapping(value = "/par-categorie/{categorieId}", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public List<Produit> getProduitsByCategorie(@PathVariable Long categorieId) {
+        return produitRepos.findByCategorieId(categorieId);
+    }
+
 
 }
